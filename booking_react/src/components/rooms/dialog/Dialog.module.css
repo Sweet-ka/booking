@@ -1,0 +1,60 @@
+.dialogs {
+  background-color: #ededed;
+  border-radius: 10px;
+  height: 70vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 0;
+}
+
+.dialogs li {
+  margin: 5px;
+  padding: 8px;
+}
+
+.username {
+  font-size: 1em;
+  font-weight: 900;
+}
+
+.date {
+  font-size: 0.8em;
+}
+
+.sendMessage {
+  text-align: left;
+  padding: 20px 0;
+}
+
+.sendMessage button {
+  margin-top: 10px;
+}
+
+.incoming,
+.outgoing {
+  background-color: #f0fffb;
+  width: 70%;
+  border-radius: 20px;
+}
+
+.incoming {
+  align-self: flex-end;
+}
+
+.outgoing {
+  align-self: flex-start;
+  background-color: #afe1bc;
+}
+
+.msgInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text {
+  text-align: left;
+}
+
