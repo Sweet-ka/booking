@@ -11,7 +11,7 @@ import Stack from 'react-bootstrap/Stack';
 
 export const Home = () => {
   const [auth, setAuth] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({});
   const [token, setToken] = useState(sessionStorage.getItem('auth_token'));
 
   const navigate = useNavigate();
@@ -23,6 +23,8 @@ export const Home = () => {
   const logout = () => {
     sessionStorage.removeItem('auth_token');
     setToken(sessionStorage.getItem('auth_token'));
+    setUser({});
+    setAuth(false);
   }
 
   const currentUser = useCallback(async() => {

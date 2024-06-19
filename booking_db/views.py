@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import permissions
 from django.contrib.auth.models import User
 from django.db.models import Q
+from itertools import chain
 
 # Create your views here.
 
@@ -20,7 +21,10 @@ class Rooms(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        rooms = Room.objects.filter(Q(creater=request.user) | Q(invited=request.user))
+        # rooms = Room.objects.filter(Q(creater=request.user) | Q(invited=request.user))
+        roomsCreater = Room.objects.filter(creater=request.user)
+        roomsInvited = Room.objects.filter(invited=request.user)
+        rooms = list(chain(roomsCreater, roomsInvited))
         serializer = RoomSerializer(rooms, many=True)
         return Response({"data": serializer.data})
     

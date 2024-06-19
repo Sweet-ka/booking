@@ -25,7 +25,6 @@ export const Room = (props) => {
       }
       const roomsData = await response.json();
       setRooms(roomsData);
-      console.log(roomsData)
     } catch (err) {
       alert(err.name)
     }
@@ -47,13 +46,11 @@ export const Room = (props) => {
   }, [headers, loadRoom])
 
   useEffect(() => {
-    console.log(props.currentUser)
     loadRoom();
   }, [loadRoom, props.currentUser])
   
   const goDialog = (id) => {
-    console.log(id)
-    setRoomID(id);
+    if(id) setRoomID(id);
   }
 
   return (
