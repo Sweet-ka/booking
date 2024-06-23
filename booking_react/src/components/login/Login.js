@@ -26,7 +26,8 @@ export function Login(props) {
       const token = result.data.attributes.auth_token;
       sessionStorage.setItem('auth_token', token)
       alert('Спасибо что вы с нами!')
-      navigate("/", {state: {token: token}});
+      // navigate("/", {state: {token: token}});
+      navigate(-1)
 
     } catch (err) {
       if (err.cause === 400) {

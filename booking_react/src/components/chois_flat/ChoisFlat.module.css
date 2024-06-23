@@ -1,0 +1,16 @@
+.dateWrapper,
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.date {
+  width: 100px;
+  height: 30px;
+  font-size: 1.2em;
+}
+
+.dropdownItem:active,
+.dropdownItem:hover {
+  background-color: initial;
+}
