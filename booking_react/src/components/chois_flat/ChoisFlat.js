@@ -127,15 +127,15 @@ export const ChoisFlat = () => {
             <DropdownRegion update={updateRegion} show={data.showTooltipRegion} close={() => dispatch({type: 'showTooltipRegion', show: false})}/>
           </div>
           <Dropdown autoClose='outside'>
-            <Dropdown.Toggle variant='outline-success' id='dropdown-basic'>
+            <Dropdown.Toggle variant='outline-light' className={style.drop} id='dropdown-basic'>
               <div className={style.dateWrapper}>
                 <div className={style.date}>
-                  <Badge bg='light' text='dark'>
+                  <Badge bg='none'>
                     {state[0]?.startDate?.toLocaleDateString()}
                   </Badge>
                 </div>
                 <div className={style.date}>
-                  <Badge bg='light' text='dark'>
+                  <Badge bg='none'>
                     {state[0]?.endDate?.toLocaleDateString()}
                   </Badge>
                 </div>
@@ -164,7 +164,7 @@ export const ChoisFlat = () => {
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
-          <Button variant='outline-success' onClick={() => handleClick()}>
+          <Button variant='warning' className={style.select} onClick={() => handleClick()}>
             Подобрать
           </Button>
         </div>

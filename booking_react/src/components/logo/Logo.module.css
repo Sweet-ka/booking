@@ -1,0 +1,64 @@
+.logo {
+  display: flex;
+  gap: 20px;
+  justify-content: left;
+  align-items: center;
+}
+
+.logoName {
+  color: #00095E;
+  margin: 0;
+}
+
+.logoImg {
+  position: relative;
+  height: 64px;
+  width: 64px;
+}
+
+.logoImg::before {
+  content: "";
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: dotted 1px orange;
+  position: absolute;
+  left: -8px;
+  top: -8px;
+}
+
+.white .logoImg:before {
+  border-color: #fff;
+}
+
+.white .logoName{
+  color: #fff;
+}
+
+.flyWrap {
+  width: 24px;
+  height: 24px;
+  left: -8px;
+  top: -8px;
+  transform-origin: 40px 40px;
+  position: absolute;
+  animation-name: fly;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+}
+
+.fly {
+  width: 100%;
+  object-fit: cover;
+  transform: rotate(-45deg);
+}
+
+@keyframes fly {
+  from {
+    rotate: 0;
+  } to {
+    rotate: 360deg;
+  }
+}

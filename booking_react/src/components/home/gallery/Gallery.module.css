@@ -1,0 +1,29 @@
+.cardsWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.imgWrapper {
+  position: relative;
+}
+
+.imgWrapper::after {
+  display: block;
+  content: '';
+  /* 16:9 aspect ratio */
+  padding-bottom: 100%;
+}
+
+.card {
+  border: none;
+  --bs-card-inner-border-radius: 0;
+}

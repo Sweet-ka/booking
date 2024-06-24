@@ -1,0 +1,149 @@
+.info {
+  padding-top: 50px;
+}
+
+.firstPart{
+  padding-top: 105px;
+}
+
+.sloganMain {
+  font-weight: bold;
+  font-size: 50px;
+  margin-top: -50px;
+}
+
+.sloganMain dd {
+  position: relative;
+  display: inline-block;
+}
+
+.sloganMain dd::before {
+  position: absolute;
+  content: "";
+  height: 11px;
+  background: #FFC800;
+  width: 97%;
+  display: inline-block;
+  top: 58%;
+  z-index: -1;
+  text-align: center;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.sloganSecond {
+  font-family: Roboto, sans-serif;
+  font-size: 19px;
+  font-weight: 400;
+  margin-bottom: 40px;
+}
+
+.secondPart {
+  background: url('../../../public/images/h1_hero1.png.webp') center center no-repeat;
+  background-size: cover;
+  height: 880px;
+  margin-top: -50px;
+  display: flex;
+  align-items: end;
+}
+
+.run {
+  position: relative;
+  bottom: 26%;
+  right: -9%;
+  animation: run 10s linear infinite alternate;
+}
+
+@keyframes run {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+      transform: translate(-100px, 0);
+  }
+  80% {
+      transform: translate(100px, 0);
+  }
+}
+
+.runImg {
+  width: 90%;
+  object-fit: cover;
+}
+
+.faq {
+  padding-bottom: 120px;
+}
+
+.sectionTitle {
+  margin-bottom: 70px;
+}
+
+.sectionTitle span {
+    color: #7EA0FF;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+    display: inline-block;
+    letter-spacing: 0.05em;
+}
+
+.sectionTitle .sloganMain {
+  margin-top: 0px;
+}
+
+.service {
+  padding-top: 120px;
+  padding-bottom: 100px;
+}
+
+.questions>div:last-child {
+  padding-top: 50px;
+}
+
+.questions img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.booking {
+  padding: 0;
+}
+
+.booking a {
+  color: #fff;
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 20px 30px;
+  font-weight: bold;
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .secondPart {
+      height: 550px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .secondPart {
+      height: 400px;
+  }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+  .secondPart {
+      margin-top: 0px;
+      height: 300px;
+  }
+}
+
+@media (max-width: 575px) {
+  .secondPart {
+    margin-top: 0px;
+    height: 300px;
+}
+}

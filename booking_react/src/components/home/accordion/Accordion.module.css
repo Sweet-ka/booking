@@ -1,0 +1,24 @@
+.accordion {
+  --bs-accordion-btn-icon: url('../../../../public/images/plus.png');
+  --bs-accordion-btn-active-icon: url('../../../../public/images/minus.png');
+  --bs-accordion-active-color: #7EA0FF;
+  --bs-accordion-active-bg: transparent;
+  --bs-accordion-btn-focus-box-shadow: transparent;
+  --bs-accordion-inner-border-radius: 0;
+}
+
+.item {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.header button {
+  flex-direction: row-reverse;
+  justify-content: start;
+  gap: 10px;
+}
+
+.header button::after {
+  margin-left: 0;
+}

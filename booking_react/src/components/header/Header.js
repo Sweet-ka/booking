@@ -1,69 +1,87 @@
-import { useNavigate } from "react-router-dom";
-import { useCallback, useEffect, useState } from "react"
-import { Button } from "react-bootstrap";
-import style from "./Header.module.css";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Stack from 'react-bootstrap/Stack';
+/** @format */
 
+import { useNavigate } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { Button, Image } from "react-bootstrap";
+import style from "./Header.module.css";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Stack from "react-bootstrap/Stack";
+import { Logo } from "../logo/Logo";
 
 export const Header = () => {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState({});
-  const [token, setToken] = useState(sessionStorage.getItem('auth_token'));
+  const [token, setToken] = useState(sessionStorage.getItem("auth_token"));
 
   const navigate = useNavigate();
 
   const goLogin = () => {
     navigate("/login");
-  }
+  };
 
   const logout = () => {
-    sessionStorage.removeItem('auth_token');
-    setToken(sessionStorage.getItem('auth_token'));
+    sessionStorage.removeItem("auth_token");
+    setToken(sessionStorage.getItem("auth_token"));
     setUser({});
     setAuth(false);
-  }
+  };
 
-  const currentUser = useCallback(async() => {
+  const currentUser = useCallback(async () => {
     try {
-      let response = await fetch('http://127.0.0.1:8000/auth/users/me', {headers: {Authorization: `Token ${token}`}});
+      let response = await fetch("http://127.0.0.1:8000/auth/users/me", {
+        headers: { Authorization: `Token ${token}` },
+      });
 
       if (!response.ok) {
-        throw new Error('', {cause: response.status})
+        throw new Error("", { cause: response.status });
       }
 
       let result = await response.json();
       console.log(result.data);
-      setUser(result.data)
+      setUser(result.data);
     } catch (err) {
       if (err.cause === 400) {
-        console.log('Пользователь не авторизован')
+        console.log("Пользователь не авторизован");
       }
     }
-  }, [token])
+  }, [token]);
 
   useEffect(() => {
-    setAuth(token && token !== '');
+    setAuth(token && token !== "");
     currentUser();
-  }, [token, currentUser])
+  }, [token, currentUser]);
 
   return (
-    <div>
+    <header className={style.header}>
       <Container>
         <Row>
-          <Col className={style.head}>
-            <Stack direction="horizontal" gap={3}>
-              <h2 className="p-2 me-auto" data-bs-theme="dark">Booking</h2>
-              <span>{user?.attributes?.username}</span>
-              <div className="p-2">
-                {auth ? <Button variant="secondary" className={style.login} onClick={logout}>Выход</Button> : <Button variant="secondary" onClick={goLogin}>Вход</Button>}
-              </div>
-            </Stack>
+          <Col>
+            <div className={style.headerInner}>
+              <Logo/>
+              <nav className={style.nav}>
+                <Stack direction='horizontal' gap={3}>
+                  <span>{user?.attributes?.username}</span>
+                  <div className='p-2'>
+                    {auth ? (
+                      <Button variant='warning' className={style.login} onClick={logout}>
+                        <Image src='/images/logout.png' width={"30px"} />
+                        Выход
+                      </Button>
+                    ) : (
+                      <Button className={style.login} variant='warning' onClick={goLogin}>
+                        <Image src='/images/login.png' width={"30px"} />
+                        Вход
+                      </Button>
+                    )}
+                  </div>
+                </Stack>
+              </nav>
+            </div>
           </Col>
         </Row>
       </Container>
-    </div>
-  )
-}
+    </header>
+  );
+};

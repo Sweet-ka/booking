@@ -1,0 +1,34 @@
+.alice-carousel__wrapper {
+  margin: 0 auto;
+}
+
+.alice-carousel__next-btn,
+.alice-carousel__prev-btn {
+  position: absolute;
+  bottom: -29px;
+  right: 0;
+  align-items: end;
+  justify-content: center;
+  z-index: 100;
+}
+
+.alice-carousel__next-btn p,
+.alice-carousel__prev-btn p {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 2em;
+}
+
+  .alice-carousel__prev-btn {
+  left: 0;
+}
+
+.alice-carousel__prev-btn-wrapper:hover,
+.alice-carousel__next-btn-wrapper:hover {
+    transform: scale(1.1);
+}
+
+.alice-carousel__next-btn-wrapper:hover {
+  transform: scale(1.1);
+}

@@ -97,10 +97,10 @@ const target = useRef(null);
   return (
     <div className={style.dropdownRegion}>
         <Dropdown ref={target}>
-          <Dropdown.Toggle variant='outline-success' as={CustomToggle} id="dropdown-custom-components">
+          <Dropdown.Toggle className={style.toggle} as={CustomToggle} id="dropdown-custom-components">
             <div className={style.regionWrap}>{region}</div>
           </Dropdown.Toggle>
-          <Dropdown.Menu as={CustomMenu}>
+          <Dropdown.Menu as={CustomMenu} className={style.menu}>
             {regions.map((item, i) => {
               return <Dropdown.Item eventKey={i} key={i} value={JSON.stringify(item)} onClick={() => selectRegion(item)}>
                 {`${item?.region} (${item?.country?.country})`}
