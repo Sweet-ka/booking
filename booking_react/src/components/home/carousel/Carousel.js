@@ -11,26 +11,28 @@ const handleDragStart = (e) => e.preventDefault();
 
 const cards = [
   {
-    src: 'https://avatars.mds.yandex.net/i?id=27f74c587b1af1d15fd5fd26155beb6d1bf3bda0-12714255-images-thumbs&n=13',
-    alt: '1',
-    title: 'Slide 1',
-    text: '',
+    src: 
+"https://cf2.bstatic.com/xdata/images/hotel/square600/319995712.webp?k=51d6cd5c852dcfff33ddc805e5cae2a2a2ceb10b6ec01d77d03daeab3e6e2248&o=",    alt: '1',
+    title: 'Hotel Locarno',
+    text: 'Спанья, Рим',
     href: '#1',
-    price: 120,
+    price: 621,
   },
   {
-    src: 'https://avatars.mds.yandex.net/i?id=5a35be76b24368dda166789aa1a665b45b6d0dd5-12938945-images-thumbs&n=13',
+    src: 
+'https://cf2.bstatic.com/xdata/images/hotel/max1024x768/282357381.jpg?k=df4c1fe3b62374b4074e85f27ce7f7c8c3996224667592cf6191b84c76cbe07c&o=&hp=1'    ,
     alt: '1',
-    title: 'Slide 2',
-    text: '',
+    title: 'Aris Amsterdam',
+    text: 'Амтердам - центр города',
     href: '#2',
-    price: 130,
+    price: 432,
   },
   {
-    src: 'https://avatars.mds.yandex.net/i?id=c8311fa47126df67bd98f043c43ea23bd9830b1e-10415038-images-thumbs&n=13',
+    src: 
+"https://cf2.bstatic.com/xdata/images/hotel/square600/524715425.webp?k=f462e30b91e9dedc11b302175a352a7d95fb0443b7c25654a089c92c5aff161c&o="    ,
     alt: '1',
-    title: 'Slide 3',
-    text: '',
+    title: 'Grimm\'s Potsdamer Platz',
+    text: 'Фридрихсхайн-Кройцберг, Берлин',
     href: '#3',
     price: 140,
   },

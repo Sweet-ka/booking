@@ -10,27 +10,37 @@ const handleDragStart = (e) => e.preventDefault();
 
 const cards = [
   {
-    src: 'https://avatars.mds.yandex.net/i?id=27f74c587b1af1d15fd5fd26155beb6d1bf3bda0-12714255-images-thumbs&n=13',
+    src: 
+'https://avatars.mds.yandex.net/i?id=e25a6658f28147726f785df90d144da8ebb58dd0-11008180-images-thumbs&n=13'
+    ,
     alt: '1',
   },
   {
-    src: 'https://avatars.mds.yandex.net/i?id=5a35be76b24368dda166789aa1a665b45b6d0dd5-12938945-images-thumbs&n=13',
+    src: 
+'https://avatars.mds.yandex.net/i?id=aa2bd5b8d95d3d9221c38032c93a7ae2deb8fa67-5292718-images-thumbs&n=13'
+    ,
     alt: '1',
   },
   {
-    src: 'https://avatars.mds.yandex.net/i?id=c8311fa47126df67bd98f043c43ea23bd9830b1e-10415038-images-thumbs&n=13',
+    src: 
+'https://avatars.mds.yandex.net/i?id=7046bfdae274e66a9f7dc043272b3109247b237d-12508201-images-thumbs&n=13'    ,
     alt: '1',
   },
   {
-    src: 'https://avatars.mds.yandex.net/i?id=27f74c587b1af1d15fd5fd26155beb6d1bf3bda0-12714255-images-thumbs&n=13',
+    src: 
+'https://avatars.mds.yandex.net/i?id=6c21c36ef4d9878a7bfe063e304da1ae84a9b573-11003380-images-thumbs&n=13'
+,
     alt: '1',
   },
   {
-    src: 'https://avatars.mds.yandex.net/i?id=5a35be76b24368dda166789aa1a665b45b6d0dd5-12938945-images-thumbs&n=13',
+    src: 
+'https://avatars.mds.yandex.net/i?id=6293e0638891836acd4a7adde97d430c8f963255-12469033-images-thumbs&n=13'
+    ,
     alt: '1',
   },
   {
-    src: 'https://avatars.mds.yandex.net/i?id=c8311fa47126df67bd98f043c43ea23bd9830b1e-10415038-images-thumbs&n=13',
+    src: 
+'https://avatars.mds.yandex.net/i?id=6aa8bb02567232fb7727ba1e2527a0fc3f5a2672-12719024-images-thumbs&n=13'    ,
     alt: '1',
   },
 ]

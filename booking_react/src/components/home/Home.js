@@ -30,7 +30,7 @@ export const Home = () => {
           </Row>
         </Container>
       </div>
-      <section className={style.service}>
+      <section className={style.service} id='favourites'>
         <Container>
           <div className={style.sectionTitle}>
             <span>Выберите из популярных</span>
@@ -39,7 +39,7 @@ export const Home = () => {
           <Carousel/>
         </Container>
       </section>
-      <section className={style.faq}>
+      <section className={style.faq} id='faq'>
         <Container>
           <div className={style.sectionTitle}>
             <span>FAQ</span>

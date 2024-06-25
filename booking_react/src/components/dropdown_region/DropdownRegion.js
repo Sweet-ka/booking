@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
 import style from "./DropdownRegion.module.css";
-import { Button } from 'react-bootstrap';
+import { Button, Image } from 'react-bootstrap';
 import Overlay from 'react-bootstrap/Overlay';
 import Tooltip from 'react-bootstrap/Tooltip';
 
@@ -103,6 +103,7 @@ const target = useRef(null);
           <Dropdown.Menu as={CustomMenu} className={style.menu}>
             {regions.map((item, i) => {
               return <Dropdown.Item eventKey={i} key={i} value={JSON.stringify(item)} onClick={() => selectRegion(item)}>
+                <Image src={"/images/geo_dark.png"} alt="geo" height={"20px"} style={{marginRight: "10px"}}/>
                 {`${item?.region} (${item?.country?.country})`}
               </Dropdown.Item>
             })}
