@@ -1,3 +1,96 @@
 .formLogin {
   padding: 50px;
 }
+
+.registr {
+  padding-top: 40px;
+}
+
+.tableWrapper {
+  margin-bottom: 40px;
+}
+
+.formSection {
+  position: relative;
+  padding-top: 50px;
+}
+
+.formWrapper {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.titleWrapper {
+  position: relative;
+  height: 50px;
+  width: 100%;
+}
+
+.email,
+.authTitle,
+.regTitle {
+  animation-duration: 0.5s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+.email {
+  height: 0;
+  overflow: hidden;
+}
+
+.email,
+.authTitle,
+.regTitle {
+  transform: scale(0);
+}
+
+.authTitle,
+.regTitle {
+  width: 100%;
+  position: absolute;
+  transform-origin: 50% 25px;
+}
+
+.come {
+  animation-name: come;
+}
+
+.comeDelay {
+  animation-name: come;
+  animation-delay: 0.5s;
+}
+
+.leave {
+  animation-name: leave;
+}
+
+@keyframes leave {
+  from {
+    transform: scale(1);
+    height: 50px;
+  } to {
+    transform: scale(0);
+    height: 0;
+  }
+}
+
+@keyframes come {
+  from {
+    transform: scale(0);
+    height: 0;
+  } to {
+    transform: scale(1);
+    height: 50px;
+  }
+}
+
+.navbar {
+  margin-top: 50px;
+}
+
+.navbar a {
+  color: #1a2d6e;
+  font-weight: bold;
+  margin-left: 20px;
+}

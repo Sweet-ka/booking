@@ -62,18 +62,23 @@ export const Header = () => {
               <Logo/>
               <nav className={style.nav}>
                 <Stack direction='horizontal' gap={3}>
-                  <span>{user?.attributes?.username}</span>
+                  {/* <span>{user?.attributes?.username}</span> */}
                   <div className='p-2'>
                     {auth ? (
-                      <Button variant='warning' className={style.login} onClick={logout}>
-                        <Image src='/images/logout.png' width={"30px"} />
-                        Выход
-                      </Button>
+                      <div>
+                        <Button variant="light" className={style.user}><h5>{user?.attributes?.username}</h5></Button>
+                        <Button variant='warning' className={style.login} onClick={logout}>
+                          <Image src='/images/logout.png' width={"30px"} />
+                          Выход
+                        </Button>
+                      </div>
                     ) : (
-                      <Button className={style.login} variant='warning' onClick={goLogin}>
-                        <Image src='/images/login.png' width={"30px"} />
-                        Вход
-                      </Button>
+                      <div>
+                        <Button className={style.login} variant='warning' onClick={goLogin}>
+                          <Image src='/images/login.png' width={"30px"} />
+                          Вход
+                        </Button>
+                      </div>
                     )}
                   </div>
                 </Stack>

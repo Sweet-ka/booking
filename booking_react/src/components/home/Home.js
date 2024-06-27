@@ -59,7 +59,7 @@ export const Home = () => {
         </Container>
       </section>
       <Gallery/>
-      <Footer/>
+      <Footer page="home"/>
     </div>
   )
 }
