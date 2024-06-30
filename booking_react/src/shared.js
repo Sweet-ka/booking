@@ -20,5 +20,5 @@ export function time(date) {
 }
 
 export function dateToString (date) {
-  return !date ? false : `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  return !date ? false : `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }

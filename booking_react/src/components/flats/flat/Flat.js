@@ -3,11 +3,12 @@ import { Button, Badge, Container } from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useLocation } from 'react-router-dom';
 import { useState, useCallback, useReducer, useEffect } from "react"
-import { Header } from '../header/Header';
+import { Header } from '../../header/Header';
 import style from "./Flat.module.css";
 import { DateRange } from 'react-date-range';
-import { time } from '../../shared';
-import { Booking } from './booking/Booking';
+import { time } from '../../../shared';
+import { Booking } from '../booking/Booking';
+import { dateToString } from '../../../shared';
 
 export const Flat = (props) => {
   const [modalShow, setModalShow] = useState(false);
@@ -16,15 +17,14 @@ export const Flat = (props) => {
 
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: null,
+      startDate: sessionStorage.getItem("start") ? new Date(sessionStorage.getItem("start")) : new Date(),
+      endDate: new Date(sessionStorage.getItem("end")) || null,
       key: 'selection'
     }
   ]);
 
 
   const init = (state) => {
-    console.log(state)
     return state
   }
 
@@ -59,27 +59,25 @@ export const Flat = (props) => {
   const getOccupiedDates = useCallback(async() => {
     const response = await fetch(`http://127.0.0.1:8000/api/v1/booking/date?flat=${locationState.flat.id}`);
     const res = await response.json();
-    const dates = res.data.dates.map(obj => time(obj.date));
+    const dates = res.data.dates.map(obj => obj.date);
     dispatch({type: 'disabledDate', disabled: dates})
   }, [locationState])
 
 
   const checkRange = () => {
-    const startDate = state[0]?.startDate?.toISOString().slice(0, 10);
-    const endDate = state[0]?.endDate?.toISOString().slice(0, 10);
+    const {startDate, endDate} = state[0]
     const range = []
-
     let free = true;
-    let count = 1;
-    let date = time(startDate);
+    // let count = 0;
+    let date = +time(startDate);
+    let max = +time(endDate)
+    const d = new Date(startDate)
 
-    while ((date + 1) <= time(endDate)) {
-      const d = new Date(startDate)
-      d.setDate(d.getDate() + count)
-      range.push(d.toISOString().slice(0, 10))
-      if(data.disabledDates.includes(date)) free = false;
-      count += 1;
-      date += 1;
+    while (date <= max) {
+      range.push(dateToString(d))
+      if (data.disabledDates.includes(dateToString(d))) free = false
+      d.setDate(d.getDate() + 1)
+      date += 2 * 12 * 60 * 60 * 1000
     }
     dispatch({type: "free", free: free});
     dispatch({type: "range", range: range});
@@ -132,7 +130,7 @@ export const Flat = (props) => {
                     showDateDisplay={false}
                     minDate={new Date()}
                     disabledDay={(date) => {
-                      return data?.disabledDates?.includes(time(date));
+                      return data?.disabledDates?.includes(dateToString(date));
                     }}
                   />
                 </Dropdown.Item>
@@ -146,7 +144,8 @@ export const Flat = (props) => {
               onHide={() => setModalShow(false)}
               free={data.free.toString()}
               range={data.range}
-              flat={locationState.flat}/>
+              flat={locationState.flat}
+              updateRange={getOccupiedDates}/>
           </div>
         </Container>
 

@@ -27,7 +27,7 @@ const items = [
 const item = (props, i) => {
   const {q, a} = props;
   return (
-    <Accordion.Item className={style.item} eventKey={i}>
+    <Accordion.Item className={style.item} eventKey={i} key={i}>
       <Accordion.Header className={style.header}>{q}</Accordion.Header>
       <Accordion.Body>{a}</Accordion.Body>
     </Accordion.Item>

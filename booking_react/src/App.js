@@ -10,7 +10,8 @@ import {
 } from "react-router-dom";
 import style from "./App.module.css";
 import { Login } from './components/login/Login';
-import { Flat } from './components/flat/Flat';
+import { Flat } from './components/flats/flat/Flat';
+import { Flats } from './components/flats/Flats';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} ></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/chat" element={<Chat />}></Route>
+          <Route path="/flats" element={<Flats />}></Route>
           <Route path="/flat" element={<Flat />} >
             <Route path=":flatId" element={<Flat />}></Route>          
           </Route>

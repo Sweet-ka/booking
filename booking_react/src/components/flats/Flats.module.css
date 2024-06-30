@@ -1,0 +1,7 @@
+.flats {
+  min-height: 80vh;
+}
+
+.chois {
+  flex-direction: column;
+}

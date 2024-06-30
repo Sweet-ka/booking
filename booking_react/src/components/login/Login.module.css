@@ -15,6 +15,10 @@
   padding-top: 50px;
 }
 
+.formSection button {
+  margin-top: 16px;
+}
+
 .formWrapper {
   max-width: 500px;
   margin: 0 auto;
@@ -24,6 +28,14 @@
   position: relative;
   height: 50px;
   width: 100%;
+}
+
+.formGroup {
+  position: relative;
+}
+
+.tooltip {
+  z-index: 10000;
 }
 
 .email,
@@ -36,7 +48,8 @@
 
 .email {
   height: 0;
-  overflow: hidden;
+  position: relative;
+  z-index: 1000;
 }
 
 .email,
@@ -68,7 +81,7 @@
 @keyframes leave {
   from {
     transform: scale(1);
-    height: 50px;
+    height: calc(38px + 1rem);
   } to {
     transform: scale(0);
     height: 0;
@@ -81,7 +94,7 @@
     height: 0;
   } to {
     transform: scale(1);
-    height: 50px;
+    height: calc(38px + 1rem);
   }
 }
 

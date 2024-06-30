@@ -49,7 +49,7 @@ const card = (props) => {
   const {src, alt} = props;
   return (
     <Card className={style.card} onDragStart={handleDragStart} role='presentation'>
-      <div class={style.imgWrapper}>
+      <div className={style.imgWrapper}>
         <Card.Img variant='top' src={src} alt={alt} />
       </div>
     </Card>

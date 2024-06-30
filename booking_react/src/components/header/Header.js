@@ -39,7 +39,6 @@ export const Header = () => {
       }
 
       let result = await response.json();
-      console.log(result.data);
       setUser(result.data);
     } catch (err) {
       if (err.cause === 400) {

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Form from 'react-bootstrap/Form';
@@ -8,7 +9,7 @@ import Tooltip from 'react-bootstrap/Tooltip';
 
 export const DropdownRegion = (props) => {
 const [regions, setRegions] = useState([])
-const [region, setRegion] = useState('Куда вы хотите поехать?')
+const [region, setRegion] = useState(sessionStorage.getItem("region") ? JSON.parse(sessionStorage.getItem("region"))?.region : 'Куда вы хотите поехать?')
 const closeBtn = React.createRef()
 const target = useRef(null);
 
@@ -59,7 +60,7 @@ const target = useRef(null);
           <ul className="list-unstyled">
             {React.Children.toArray(children).filter(
               (child) =>
-                !value || child.props.children.toLowerCase().includes(value),
+                !value || child.props.children[1].toLowerCase().includes(value),
             )}
           </ul>
         </div>
@@ -69,8 +70,8 @@ const target = useRef(null);
 
 
   const selectRegion = (region) => {
-    // console.log(JSON.stringify(region))
     setRegion(region.region)
+    sessionStorage.setItem("region", JSON.stringify(region))
     props.update(region?.id)
   }
 
@@ -89,6 +90,11 @@ const target = useRef(null);
     }
   }, [])
   
+  useEffect(() => {
+    if(sessionStorage.getItem("region")){
+      props.update(JSON.parse(sessionStorage.getItem("region"))?.id)
+    }
+  }, [])
 
   useEffect(() => {
     getRegions()
@@ -97,7 +103,7 @@ const target = useRef(null);
   return (
     <div className={style.dropdownRegion}>
         <Dropdown ref={target}>
-          <Dropdown.Toggle className={style.toggle} as={CustomToggle} id="dropdown-custom-components">
+          <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
             <div className={style.regionWrap}>{region}</div>
           </Dropdown.Toggle>
           <Dropdown.Menu as={CustomMenu} className={style.menu}>

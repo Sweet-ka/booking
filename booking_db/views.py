@@ -129,6 +129,6 @@ class GetRegions(APIView):
     permission_classes = [permissions.AllowAny]
     # пролучить все регионы
     def get(self, request):
-        flats = Region.objects.all()
-        serializer = RegionSerializer(flats, many=True)
+        regions = Region.objects.all()
+        serializer = RegionSerializer(regions, many=True)
         return Response({"regions": serializer.data})

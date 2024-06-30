@@ -4,26 +4,26 @@ import style from "./ChoisFlat.module.css";
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRange } from 'react-date-range';
-import { Button, Badge, Container } from "react-bootstrap";
+import { Button, Badge, Row, Col } from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { DropdownRegion } from "../dropdown_region/DropdownRegion";
-import { FlatCard } from "../flat/flat_card/FlatCard";
 import { dateToString } from "../../shared";
+import { useNavigate } from "react-router-dom";
 
 
-export const ChoisFlat = () => {
+export const ChoisFlat = (props) => {
+  const navigate = useNavigate()
 
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: null,
+      startDate: sessionStorage.getItem("start") ? new Date(sessionStorage.getItem("start")) : new Date(),
+      endDate: new Date(sessionStorage.getItem("end")) || null,
       key: 'selection'
     }
   ]);
 
 
   const init = (state) => {
-    console.log(state)
     return state
   }
 
@@ -39,12 +39,13 @@ export const ChoisFlat = () => {
         return {
           ...state,
           occupied: action.payload,
-          freeFlats: action.free
+          freeFlats: action.free,
+          redirect: action.redirect
         };
       case 'region':
         return {
           ...state,
-          region: action.payload
+          region: action.payload,
       };
       case 'showTooltipRegion':
         return {
@@ -57,7 +58,14 @@ export const ChoisFlat = () => {
     }
   }
 
-  const [data, dispatch] = useReducer(reducer, {flats: [], occupied: new Set(), freeFlats: [], region: '', showTooltipRegion: false}, init)
+  const [data, dispatch] = useReducer(reducer, {
+    flats: [], 
+    occupied: new Set(), 
+    freeFlats: [], 
+    region: sessionStorage.getItem('region') ? JSON.parse(sessionStorage.getItem('region')).id : '', 
+    showTooltipRegion: false, 
+    redirect: false
+  }, init)
 
   const updateRegion = async(region) => {
     dispatch({type: 'region', payload: region})
@@ -71,7 +79,6 @@ export const ChoisFlat = () => {
         throw new Error();
       }
       const data = await response.json();
-      console.log("Квартиры в регионе:", data.data.flats)
       dispatch({type: 'flats', payload: data?.data?.flats})        
     } catch (error) {
       console.log(error)
@@ -84,7 +91,8 @@ export const ChoisFlat = () => {
       const {startDate, endDate} = state[0]
       const start = dateToString(startDate)
       const end = dateToString(endDate)
-      console.log(state[0], start, end, new Date(startDate))
+      sessionStorage.setItem('start', start)
+      sessionStorage.setItem('end', end)
   
       const response = await fetch(`http://127.0.0.1:8000/api/v1/booking/range?start_date=${start}&end_date=${end}`);
 
@@ -93,91 +101,99 @@ export const ChoisFlat = () => {
       }
 
       const resData = await response.json();
-      console.log(start, end, "занятые даты:", resData.data)
   
       const flats = new Set();
       resData?.data?.flats.forEach(item => {
         flats.add(item.flat);
       })
       const free = data.flats.filter(item => item ? !flats.has(item.id) : false)
-      dispatch({type: 'occupied', payload: flats, free: free})
+      dispatch({
+        type: 'occupied',
+        payload: flats,
+        free: free,
+        redirect: navigate("/flats", {state: {freeFlats: free, region: data.region}})
+      })
         
     } catch (error) {
       console.log(error)
     }
-  },[data.flats, state])
+  },[data.flats, state, data.region, navigate])
 
   const handleClick = async() => {
     if(!data.region) {
       // поменять класс спска регионов
       dispatch({type: 'showTooltipRegion', show: true})
       // alert('Задайте направление')
+      return false;
     } else {
       await getFlats(data.region);
-      await getRange()
+      await getRange();
     }
   }
 
 
   return (
-    <Container>
-      <div>
-        <div className={style.nav}>
-          <div>
+    <div className={props.className}>
+        <Row className={style.nav}>
+          <Col className={style.col}>
             <DropdownRegion update={updateRegion} show={data.showTooltipRegion} close={() => dispatch({type: 'showTooltipRegion', show: false})}/>
-          </div>
-          <Dropdown autoClose='outside'>
-            <Dropdown.Toggle variant='outline-light' className={style.drop} id='dropdown-basic'>
-              <div className={style.dateWrapper}>
-                <div className={style.date}>
-                  <Badge bg='none'>
-                    {state[0]?.startDate?.toLocaleDateString()}
-                  </Badge>
+          </Col>
+          <Col className={style.col}>
+            <Dropdown autoClose='outside'>
+              <Dropdown.Toggle variant='outline-light' className={style.drop} id='dropdown-basic'>
+                <div className={style.dateWrapper}>
+                  <div className={style.date}>
+                    <Badge bg='none'>
+                      {state[0]?.startDate?.toLocaleDateString()}
+                    </Badge>
+                  </div>
+                  <div className={style.date}>
+                    <Badge bg='none'>
+                      {state[0]?.endDate < state[0]?.startDate ? '' : state[0]?.endDate?.toLocaleDateString()}
+                    </Badge>
+                  </div>
                 </div>
-                <div className={style.date}>
-                  <Badge bg='none'>
-                    {state[0]?.endDate?.toLocaleDateString()}
-                  </Badge>
-                </div>
-              </div>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item
-                className={style.dropdownItem}
-                as={"div"}
-                onClick={(e) => {
-                  e.preventDefault();
-                }}
-              >
-                  <DateRange
-                    editableDateInputs={true}
-                    onChange={(item) => setState([item.selection])}
-                    moveRangeOnFirstSelection={false}
-                    ranges={state}
-                    showDateDisplay={false}
-                    minDate={new Date()}
-                    disabledDay={(date) => {
-                      return data?.disabledDates?.includes(date?.getTime());
-                    }}
-                  />
-
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-          <Button variant='warning' className={style.select} onClick={() => handleClick()}>
-            Подобрать
-          </Button>
-        </div>
-      </div>
-      <div>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item
+                  className={style.dropdownItem}
+                  as={"div"}
+                  onClick={(e) => {
+                    e.preventDefault();
+                  }}
+                >
+                    <DateRange
+                      editableDateInputs={true}
+                      onChange={(item) => setState([item.selection])}
+                      moveRangeOnFirstSelection={false}
+                      ranges={state}
+                      showDateDisplay={false}
+                      minDate={new Date()}
+                      disabledDay={(date) => {
+                        return data?.disabledDates?.includes(date?.getTime());
+                      }}
+                    />
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Col>
+          <Col className={style.col}>
+            <Button variant='warning' className={style.select} onClick={() => handleClick()}>
+              Подобрать {data.redirect}
+            </Button>
+          </Col>
+        </Row>
+      {/* <div>
         <ul>
+          {console.log('free', data.freeFlats)}
           {data.freeFlats.map((item, i) => {
             return <li key={i}>{
                 <FlatCard flat={item}/>
               }</li>;
           })}
         </ul>
-      </div>
-    </Container>
+      </div> */}
+      {data.redirect}
+    </div>
   );
 }

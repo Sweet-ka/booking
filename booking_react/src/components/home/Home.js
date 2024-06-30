@@ -17,7 +17,7 @@ export const Home = () => {
           <h2 className={style.sloganMain}>Воспоминания на всю жизнь находятся всего<br/><dd>в нескольких секундах от вас!</dd></h2>
           <h4 className={style.sloganSecond}>Начните путешествие с нами, и ваша мечта осуществится.</h4>
         </div>
-        <ChoisFlat/>
+        <Container><ChoisFlat/></Container>
       </div>
       <div className={style.secondPart}>
         <Container>
