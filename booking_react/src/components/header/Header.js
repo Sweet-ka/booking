@@ -49,6 +49,7 @@ export const Header = () => {
 
   useEffect(() => {
     setAuth(token && token !== "");
+    console.log(token)
     currentUser();
   }, [token, currentUser]);
 

@@ -2,7 +2,7 @@ import Card from 'react-bootstrap/Card';
 import { Button, Badge, Container } from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { useLocation } from 'react-router-dom';
-import { useState, useCallback, useReducer, useEffect } from "react"
+import { useState, useReducer, useEffect } from "react"
 import { Header } from '../../header/Header';
 import style from "./Flat.module.css";
 import { DateRange } from 'react-date-range';
@@ -13,7 +13,39 @@ import { dateToString } from '../../../shared';
 export const Flat = (props) => {
   const [modalShow, setModalShow] = useState(false);
   let {state: locationState} = useLocation()
+  const [ws, setWs] = useState(null);
 
+
+  useEffect(() => {
+    const socket = new WebSocket(`ws://localhost:8000/ws/booking/date/flat/${locationState.flat.id}/`)
+  
+    socket.onopen = function(e) {
+      socket.send(JSON.stringify({
+        "flat": locationState.flat.id
+      }));
+    };
+
+    socket.onmessage = function(event) {
+      try {
+        const data = JSON.parse(event.data);
+        const dates = data.dates.map(obj => obj.date);
+        dispatch({type: 'disabledDate', disabled: dates})
+      } catch (e) {
+        console.log('Error:', e.message);
+      }
+    }
+
+    socket.onclose = () => {
+      console.log('WebSocket is closed');
+    };
+
+    setWs(socket);
+
+    // return () => {
+    //     socket.close();
+    // };
+
+  }, [locationState.flat])
 
   const [state, setState] = useState([
     {
@@ -56,19 +88,19 @@ export const Flat = (props) => {
   const [data, dispatch] = useReducer(reducer, {free: true, disabledDates: [], range: []}, init)
 
 
-  const getOccupiedDates = useCallback(async() => {
-    const response = await fetch(`http://127.0.0.1:8000/api/v1/booking/date?flat=${locationState.flat.id}`);
-    const res = await response.json();
-    const dates = res.data.dates.map(obj => obj.date);
-    dispatch({type: 'disabledDate', disabled: dates})
-  }, [locationState])
+  // const getOccupiedDates = useCallback(() => {
+
+    // const response = await fetch(`http://127.0.0.1:8000/api/v1/booking/date?flat=${locationState.flat.id}`);
+    // const res = await response.json();
+    // const dates = res.data.dates.map(obj => obj.date);
+    // dispatch({type: 'disabledDate', disabled: dates})
+  // }, [locationState.flat.id])
 
 
   const checkRange = () => {
     const {startDate, endDate} = state[0]
     const range = []
     let free = true;
-    // let count = 0;
     let date = +time(startDate);
     let max = +time(endDate)
     const d = new Date(startDate)
@@ -88,10 +120,6 @@ export const Flat = (props) => {
     checkRange()
     setModalShow(true)
   }
-
-  useEffect(() => {
-    getOccupiedDates()
-  }, [getOccupiedDates])
 
   return (
       <div>
@@ -145,7 +173,7 @@ export const Flat = (props) => {
               free={data.free.toString()}
               range={data.range}
               flat={locationState.flat}
-              updateRange={getOccupiedDates}/>
+              ws={ws}/>
           </div>
         </Container>
 

@@ -5,10 +5,10 @@ import { useNavigate } from 'react-router-dom';
 
 export const Booking = (props) => {
   const navigate = useNavigate()
-  const { show, onHide, free, range, flat, updateRange } = props
+  const { onHide, free, range, flat, ws } = props
 
-  const booking = async() => {
-    console.log(sessionStorage.getItem("auth_token"))
+  const booking = async () => {
+
     const formData = new FormData()
     formData.append('dates', range)
     formData.append('flat', flat.id)
@@ -22,8 +22,14 @@ export const Booking = (props) => {
       body: formData
     })
     console.log(response.status)
-    if (response.status === 200) {alert('Забронировано!'); updateRange()}
+    if (response.status === 200) {
+      alert('Забронировано!'); 
+      ws.send(JSON.stringify({
+        "flat": flat.id,
+      }));
+    }
     if (response.status === 401) {alert('Пользователь не авторизован')}
+
     onHide()
   }
 
