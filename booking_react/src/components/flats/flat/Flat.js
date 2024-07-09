@@ -99,6 +99,8 @@ export const Flat = (props) => {
 
   const checkRange = () => {
     const {startDate, endDate} = state[0]
+    sessionStorage.setItem("start", startDate);
+    sessionStorage.setItem("end", endDate);
     const range = []
     let free = true;
     let date = +time(startDate);

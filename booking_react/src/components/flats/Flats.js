@@ -9,7 +9,6 @@ import style from "./Flats.module.css";
 export const Flats = () => {
 
   const location = useLocation()
-
   return (
     <div>
       <Header/>
@@ -23,7 +22,7 @@ export const Flats = () => {
           <ul>
             {location?.state?.freeFlats.map((item, i) => {
               return <li key={i}>{
-                  <FlatCard flat={item}/>
+                  <FlatCard flat={item} start={location?.state?.start} end={location?.state?.end}/>
                 }</li>;
             })}
           </ul>

@@ -7,7 +7,7 @@ import { DateRange } from 'react-date-range';
 import { Button, Badge, Row, Col } from "react-bootstrap";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { DropdownRegion } from "../dropdown_region/DropdownRegion";
-import { dateToString } from "../../shared";
+import { dateToString, time } from "../../shared";
 import { useNavigate } from "react-router-dom";
 
 
@@ -111,7 +111,7 @@ export const ChoisFlat = (props) => {
         type: 'occupied',
         payload: flats,
         free: free,
-        redirect: navigate("/flats", {state: {freeFlats: free, region: data.region}})
+        redirect: navigate("/flats", {state: {freeFlats: free, region: data.region, start: startDate, end: endDate}})
       })
         
     } catch (error) {
@@ -129,6 +129,13 @@ export const ChoisFlat = (props) => {
       await getFlats(data.region);
       await getRange();
     }
+  }
+
+  const updateSelection = (item) => {
+    let start = time(item?.selection?.startDate)
+    let end = time(item?.selection?.endDate)
+    if(start.getTime() === end.getTime()) end.setDate(end.getDate() + 1);
+    setState([{startDate: start, endDate: end, key: 'selection'}])
   }
 
 
@@ -164,7 +171,8 @@ export const ChoisFlat = (props) => {
                 >
                     <DateRange
                       editableDateInputs={true}
-                      onChange={(item) => setState([item.selection])}
+                      // onChange={(item) => setState([item.selection])}
+                      onChange={(item) => updateSelection(item)}
                       moveRangeOnFirstSelection={false}
                       ranges={state}
                       showDateDisplay={false}
