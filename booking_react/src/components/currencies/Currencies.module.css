@@ -1,0 +1,11 @@
+.drop {
+  position: relative;
+  height: 50vh;
+  overflow-y: scroll;
+}
+
+.cur {
+  font-size: 0.8em;
+  display: flex;
+  gap: 10px;
+}

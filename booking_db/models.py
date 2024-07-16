@@ -59,6 +59,8 @@ class Flat(models.Model):
   path = models.CharField("Фото", max_length=255, null=True)
   title = models.CharField("Слоган", max_length=255, null=True)
   desc = models.TextField("Описание", null=True)
+  price = models.IntegerField("Цена за ночь", default=0)
+  currency = models.CharField("Валюта", default="USD", max_length=10)
 
   class Meta:
     verbose_name = "Квартира"

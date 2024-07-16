@@ -7,11 +7,12 @@ import { AccordionHome } from './accordion/Accordion';
 import { Gallery } from './gallery/Gallery';
 import { Footer } from '../footer/Footer';
 
-export const Home = () => {
+export const Home = (props) => {
+  const {rates, selectedCur, setCur} = props
 
   return (
     <div>
-      <Header/>
+      <Header rates={rates} selectedCur={selectedCur} setCur={setCur}/>
       <div id="booking" className={style.firstPart}>
         <div className={style.info}>
           <h2 className={style.sloganMain}>Воспоминания на всю жизнь находятся всего<br/><dd>в нескольких секундах от вас!</dd></h2>

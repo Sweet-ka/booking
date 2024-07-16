@@ -59,7 +59,7 @@ class FlatSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Flat
-    fields = ("id", "name", "region", "address", "owner", "link", "path", "title", "desc")
+    fields = ("id", "name", "region", "address", "owner", "link", "path", "title", "desc", "price", "currency")
 
 
 class BookingSerializer(serializers.ModelSerializer):

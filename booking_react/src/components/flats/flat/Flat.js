@@ -11,6 +11,7 @@ import { Booking } from '../booking/Booking';
 import { dateToString } from '../../../shared';
 
 export const Flat = (props) => {
+  const {rates, selectedCur, setCur} = props
   const [modalShow, setModalShow] = useState(false);
   let {state: locationState} = useLocation()
   const [ws, setWs] = useState(null);
@@ -125,7 +126,7 @@ export const Flat = (props) => {
 
   return (
       <div>
-        <Header/>
+      <Header rates={rates} selectedCur={selectedCur} setCur={setCur}/>
 
         <Container>
           <div style={{display: "flex", gap: "20px"}}>

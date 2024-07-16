@@ -7,7 +7,6 @@ export const Score = (props) => {
   const getNumberScore = Math.round((Math.random() + 8.5)*10)/10
 
   const getTextScore = (score) => {
-    console.log(score)
     let text = "так себе.."
     if(score > 7) text = "Хорошо!";
     if(score > 8) text = "Очень хорошо!";

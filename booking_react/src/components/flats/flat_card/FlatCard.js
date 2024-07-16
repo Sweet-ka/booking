@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import { Price } from '../flat/price/Price';
 
 export const FlatCard = (props) => {
-  const {id, path, name, link, address, title} = props.flat;
-  const {start, end} = props;
+  const {id, path, name, link, address, title, price, currency} = props.flat;
+  const {start, end, rates, selectedCur} = props;
 
   const period = (start, end) => {
     return (new Date(end) - new Date(start))/1000/60/60/24
@@ -28,7 +28,7 @@ export const FlatCard = (props) => {
             <Card.Subtitle className={style.subtitle}>
               <Link to={link} target='blank'>{address}</Link>
             </Card.Subtitle>
-            <Card.Text>
+            <Card.Text as={'div'}>
               <div className={style.text}>{title}</div>
             </Card.Text>
           </Card.Body>
@@ -44,7 +44,7 @@ export const FlatCard = (props) => {
               </div>
             </ListGroup.Item>
             <ListGroupItem>
-              <Price nights={nights}/>
+              <Price nights={nights} price={price} currency={currency} selectedCur={selectedCur} rates={rates}/>
             </ListGroupItem>
             <ListGroup.Item>
               <Link className={style.linkFlat} to={`/flat/id=${id}`} state={{flat: props.flat}}>Наличие мест</Link>

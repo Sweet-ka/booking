@@ -6,13 +6,13 @@ import { ChoisFlat } from "../chois_flat/ChoisFlat"
 import { FlatCard } from "../flats/flat_card/FlatCard"
 import style from "./Flats.module.css";
 
-export const Flats = () => {
-
+export const Flats = (props) => {
+  const {rates, selectedCur, setCur} = props
+  console.log(selectedCur)
   const location = useLocation()
   return (
     <div>
-      <Header/>
-      {/* {JSON.stringify(location.state.freeFlats)} */}
+      <Header rates={rates} selectedCur={selectedCur} setCur={setCur}/>
       <Container>
         <Row className={style.flats}>
           <Col xs={3}>
@@ -22,7 +22,7 @@ export const Flats = () => {
           <ul>
             {location?.state?.freeFlats.map((item, i) => {
               return <li key={i}>{
-                  <FlatCard flat={item} start={location?.state?.start} end={location?.state?.end}/>
+                  <FlatCard flat={item} start={location?.state?.start} end={location?.state?.end} rates={rates} selectedCur={selectedCur} setCur={setCur}/>
                 }</li>;
             })}
           </ul>

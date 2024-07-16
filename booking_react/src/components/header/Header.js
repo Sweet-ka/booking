@@ -9,8 +9,11 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Stack from "react-bootstrap/Stack";
 import { Logo } from "../logo/Logo";
+import { Currencies } from "../currencies/Currencies";
 
-export const Header = () => {
+export const Header = (props) => {
+  const { rates, selectedCur, setCur } = props
+
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState({});
   const [token, setToken] = useState(sessionStorage.getItem("auth_token"));
@@ -63,6 +66,7 @@ export const Header = () => {
               <nav className={style.nav}>
                 <Stack direction='horizontal' gap={3}>
                   {/* <span>{user?.attributes?.username}</span> */}
+                  <Currencies rates={rates} selectedCur={selectedCur} setCur={setCur}/>
                   <div className='p-2'>
                     {auth ? (
                       <div>

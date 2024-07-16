@@ -79,6 +79,7 @@ export const ChoisFlat = (props) => {
         throw new Error();
       }
       const data = await response.json();
+      console.log(data)
       dispatch({type: 'flats', payload: data?.data?.flats})        
     } catch (error) {
       console.log(error)
@@ -107,6 +108,7 @@ export const ChoisFlat = (props) => {
         flats.add(item.flat);
       })
       const free = data.flats.filter(item => item ? !flats.has(item.id) : false)
+      console.log(free)
       dispatch({
         type: 'occupied',
         payload: flats,
